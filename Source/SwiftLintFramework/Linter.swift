@@ -39,24 +39,33 @@ func none(xs: [Bool]) -> Bool {
 
 public struct Linter {
     private let file: File
-
     public var styleViolations: [StyleViolation] {
-        return reduce(
-            [
-                LineLengthRule().validateFile(file),
-                LeadingWhitespaceRule().validateFile(file),
-                TrailingWhitespaceRule().validateFile(file),
-                TrailingNewlineRule().validateFile(file),
-                ForceCastRule().validateFile(file),
-                FileLengthRule().validateFile(file),
-                TodoRule().validateFile(file),
-                ColonRule().validateFile(file),
-                TypeNameRule().validateFile(file),
-                VariableNameRule().validateFile(file),
-                TypeBodyLengthRule().validateFile(file),
-                FunctionBodyLengthRule().validateFile(file),
-                NestingRule().validateFile(file)
-            ], [], +)
+      let baseRules: [Rule] =     [
+        LineLengthRule(),
+        LeadingWhitespaceRule(),
+        TrailingWhitespaceRule(),
+        TrailingNewlineRule(),
+        ForceCastRule(),
+        FileLengthRule(),
+        TodoRule(),
+        ColonRule(),
+        TypeNameRule(),
+        VariableNameRule(),
+        TypeBodyLengthRule(),
+        FunctionBodyLengthRule(),
+        NestingRule()
+      ]
+      
+      let configurations = flatMap(file.configuredRegions) {
+        Configuration.generateConfiguration($0, baseRules: baseRules)
+      }
+      return flatMap(configurations) { self.sytleViolations($0) }
+    }
+  
+    func sytleViolations(configuration: Configuration) -> [StyleViolation] {
+      return configuration.enabledRules.flatMap {
+        $0.validateFile(configuration.file)
+      }
     }
 
     /**
