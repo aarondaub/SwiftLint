@@ -21,15 +21,26 @@ public enum ConfigurationCommand {
   static func command(line: Line) -> (ConfigurationCommand, Int)? {
     let commandPrefix = "// swift-lint:"
     if line.content.trim() == commandPrefix {
-      return map(command(line.content)) {
-        ($0, line.index)
-      }
+      return (command(line.content), line.index)
     }
     
     return nil
   }
   
-  static func command(string: String) -> ConfigurationCommand? {
+  static func command(string: String) -> ConfigurationCommand {
+    let enableRulePrefix = "// swift-lint:enable-rule"
+    let disableRulePrefix = "// swift-lint:disable-rule"
+    
+    let trimmedString = string.trim()
+    
+    if trimmedString.hasPrefix(enableRulePrefix) {
+      let ruleIdentifier = string.trim().stringByReplacingOccurrencesOfString(enableRulePrefix, withString: "", options: NSStringCompareOptions.allZeros, range: nil)
+      return .EnableRule(ruleIdentifier)
+    } else if trimmedString.hasPrefix(disableRulePrefix) {
+      let ruleIdentifier = string.trim().stringByReplacingOccurrencesOfString(disableRulePrefix, withString: "", options: NSStringCompareOptions.allZeros, range: nil)
+      return .DisableRule(ruleIdentifier)
+    }
+    
     return .NoOp
   }
 }
