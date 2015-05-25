@@ -28,7 +28,7 @@ extension String {
     }
   
     func trim(charactersInSet: NSCharacterSet = NSCharacterSet.whitespaceCharacterSet()) -> String {
-      return "".join(self.componentsSeparatedByCharactersInSet(charactersInSet))
+      return self.stringByTrimmingCharactersInSet(charactersInSet)
     }
     
     func rangesDelimitedBy(start: String, end: String? = nil) -> [NSRange] {
