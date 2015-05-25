@@ -39,4 +39,25 @@ extension File {
             }
         } ?? []
     }
+  
+    public func subfile(range: NSRange) -> File? {
+        if range.end < self.contents.lines().count {
+            let stringLines = self.contents.lines().map { $0.content }
+            let linesToKeep = Array<String>(stringLines[range.location..<range.end])
+            return File(contents: "\n".join(linesToKeep))
+        }
+        return nil
+    }
+    
+    public var configuredRegions: [FileRegion] {
+        let regionRanges = contents.rangesDelimitedBy("// swift-lint:begin-context", end: "// swift-lint:end-context")
+        
+        let topLevelCommands = ConfigurationCommand.commandsIn(self).filter { (command: (ConfigurationCommand, Int)) -> Bool in
+            none(regionRanges.map { NSLocationInRange(command.1, $0)})
+        }
+        let subfiles = flatten(regionRanges.map { self.subfile($0) } )
+        
+        return [FileRegion(file: self, commands: topLevelCommands.map { $0.0 })] + subfiles.flatMap { $0.configuredRegions }
+    }
+
 }
