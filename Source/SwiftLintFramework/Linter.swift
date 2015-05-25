@@ -33,9 +33,13 @@ extension File {
   
   public var configuredRegions: [FileRegion] {
     let regionRanges = contents.rangesDelimitedBy("// swift-lint:begin-context", end: "// swift-lint:end-context")
+  
+    let topLevelCommands = ConfigurationCommand.commandsIn(self).filter { (command: (ConfigurationCommand, Int)) -> Bool in
+      none(regionRanges.map { NSLocationInRange(command.1, $0)})
+    }
+    let subfiles = flatten(regionRanges.map { self.subfile($0) } )
     
-    // TODO: take each range and build a FileRegion with only rhe commands that appear in that and not it's children
-    return []
+    return [FileRegion(file: self, commands: topLevelCommands.map { $0.0 })] + subfiles.flatMap { $0.configuredRegions }
   }
 }
 
@@ -81,6 +85,16 @@ func flatten<T>(xs: [T?]) -> [T] {
     
     return $0
   }
+}
+
+func any(xs: [Bool]) -> Bool {
+  return xs.reduce(false) {
+    $0 || $1
+  }
+}
+
+func none(xs: [Bool]) -> Bool {
+  return !any(xs)
 }
 
 public enum ConfigurationCommand {
