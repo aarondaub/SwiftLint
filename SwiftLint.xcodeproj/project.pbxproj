@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		347961B11B13B81700B3B66B /* FileRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347961B01B13B81700B3B66B /* FileRegion.swift */; };
+		347961B31B13B85600B3B66B /* ConfigurationCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347961B21B13B85600B3B66B /* ConfigurationCommand.swift */; };
 		D0AAAB5019FB0960007B24B3 /* SwiftLintFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D0D1216D19E87B05005E4BAA /* SwiftLintFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0D1217819E87B05005E4BAA /* SwiftLintFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D1216D19E87B05005E4BAA /* SwiftLintFramework.framework */; };
 		D0E7B65319E9C6AD00EDBA4D /* SwiftLintFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D1216D19E87B05005E4BAA /* SwiftLintFramework.framework */; };
@@ -98,6 +100,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		347961B01B13B81700B3B66B /* FileRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRegion.swift; sourceTree = "<group>"; };
+		347961B21B13B85600B3B66B /* ConfigurationCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationCommand.swift; sourceTree = "<group>"; };
 		5499CA961A2394B700783309 /* Components.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Components.plist; sourceTree = "<group>"; };
 		5499CA971A2394B700783309 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0D1211B19E87861005E4BAA /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -310,6 +314,8 @@
 				E88DEA8B1B0999A000A66CB0 /* ASTRule.swift */,
 				E88DEA741B09852000A66CB0 /* File+SwiftLint.swift */,
 				E812249B1B04FADC001783D2 /* Linter.swift */,
+				347961B01B13B81700B3B66B /* FileRegion.swift */,
+				347961B21B13B85600B3B66B /* ConfigurationCommand.swift */,
 				E88DEA6E1B09843F00A66CB0 /* Location.swift */,
 				E88DEA761B098D0C00A66CB0 /* Rule.swift */,
 				E88DEA781B098D4400A66CB0 /* RuleParameter.swift */,
@@ -538,6 +544,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347961B31B13B85600B3B66B /* ConfigurationCommand.swift in Sources */,
 				E812249C1B04FADC001783D2 /* Linter.swift in Sources */,
 				E88DEA861B0991BF00A66CB0 /* TrailingWhitespaceRule.swift in Sources */,
 				E88DEA841B0990F500A66CB0 /* ColonRule.swift in Sources */,
@@ -545,6 +552,7 @@
 				E88DEA731B0984C400A66CB0 /* String+SwiftLint.swift in Sources */,
 				E88DEA6D1B09842200A66CB0 /* StyleViolationType.swift in Sources */,
 				E88DEA941B099C0900A66CB0 /* VariableNameRule.swift in Sources */,
+				347961B11B13B81700B3B66B /* FileRegion.swift in Sources */,
 				E88DEA8A1B0992B300A66CB0 /* FileLengthRule.swift in Sources */,
 				E88DEA751B09852000A66CB0 /* File+SwiftLint.swift in Sources */,
 				E88DEA8E1B0999CD00A66CB0 /* TypeBodyLengthRule.swift in Sources */,
