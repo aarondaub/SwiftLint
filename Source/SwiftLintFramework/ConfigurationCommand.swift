@@ -33,3 +33,50 @@ public enum ConfigurationCommand {
     return .NoOp
   }
 }
+
+struct Configuration {
+  let enabledRules: [Rule]
+  let file: File
+  
+  init(enabledRules: [Rule], file: File) {
+    (self.enabledRules, self.file) = (enabledRules, file)
+  }
+  
+  init?(commands: [ConfigurationCommand], baseRules: [Rule], file: File) {
+    let ruleMap = Dictionary<String, Int>()
+    
+    commands.map { (command: ConfigurationCommand) -> Void in
+      switch command {
+        case .EnableRule(let identifier):
+          ruleMap[identifier] == (ruleMap[identifier] ?? 0) + 1
+        case .DisableRule(let identifier):
+          ruleMap[identifier] == (ruleMap[identifier] ?? 0) + 1
+        case .NoOp:
+          break
+      }
+    }
+    
+    let rulesToEnable = baseRules.filter {
+      ruleMap[$0.identifier] ?? 0 > 0
+    }
+
+    self = Configuration(enabledRules: rulesToEnable, file: file)
+
+  }
+  
+    static func generateConfiguration(fileRegion: FileRegion, baseRules: [Rule]) -> [Configuration] {
+      let configuration = Configuration(commands: fileRegion.commands,
+                                        baseRules: baseRules,
+                                        file: fileRegion.file)
+  
+      var enabledRules = baseRules
+      map(configuration) { (configuration: Configuration) -> Void in
+        enabledRules = configuration.enabledRules
+      }
+      
+      return flatten([configuration]) + fileRegion.file.configuredRegions.flatMap {
+        generateConfiguration($0, baseRules: enabledRules)
+      }
+    }
+
+}
