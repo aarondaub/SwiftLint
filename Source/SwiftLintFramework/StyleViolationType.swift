@@ -7,15 +7,16 @@
 //
 
 public enum StyleViolationType: String, Printable {
-    case NameFormat         = "Name Format"
-    case Length             = "Length"
-    case TrailingNewline    = "Trailing Newline"
-    case LeadingWhitespace  = "Leading Whitespace"
-    case TrailingWhitespace = "Trailing Whitespace"
-    case ForceCast          = "Force Cast"
-    case TODO               = "TODO or FIXME"
-    case Colon              = "Colon"
-    case Nesting            = "Nesting"
+    case NameFormat                  = "Name Format"
+    case Length                      = "Length"
+    case TrailingNewline             = "Trailing Newline"
+    case LeadingWhitespace           = "Leading Whitespace"
+    case TrailingWhitespace          = "Trailing Whitespace"
+    case ForceCast                   = "Force Cast"
+    case TODO                        = "TODO or FIXME"
+    case Colon                       = "Colon"
+    case Nesting                     = "Nesting"
+    case ImplicitlyUnwrappedOptional = "Implicitly Unwrapped Optional"
 
     public var description: String { return rawValue }
 }

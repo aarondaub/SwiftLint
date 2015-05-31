@@ -28,7 +28,8 @@ public struct Linter {
                 VariableNameRule().validateFile(file),
                 TypeBodyLengthRule().validateFile(file),
                 FunctionBodyLengthRule().validateFile(file),
-                NestingRule().validateFile(file)
+                NestingRule().validateFile(file),
+                ImplicitlyUnwrappedOptionalRule().validateFile(file)
             ], [], +)
     }
 

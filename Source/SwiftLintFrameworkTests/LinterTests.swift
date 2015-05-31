@@ -77,6 +77,14 @@ class LinterTests: XCTestCase {
         // TODO: Support generic type names.
     }
 
+    func testImplicitlyUnwrappedOptionals() {
+        let testString = "let foo: Int!\nlet bar: Int?\n"
+        let relevantViolations = violations(testString).filter { violation in
+            violation.type == .ImplicitlyUnwrappedOptional
+        }
+        XCTAssertEqual(relevantViolations.count, 1, "We should have one implicitly unwrapped optional violation")
+    }
+  
     func testVariableNames() {
         for kind in ["class", "struct"] {
             for varType in ["var", "let"] {
