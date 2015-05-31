@@ -13,7 +13,7 @@ struct ImplicitlyUnwrappedOptionalRule: Rule {
     let identifier = "implicitly_unwrapped_optional"
   
     func validateFile(file: File) -> [StyleViolation] {
-      return file.matchPattern("([a-z]|[A-Z])+!", withSyntaxKinds: [.Typeidentifier]).map { range
+      return file.matchPattern("([0-9]|[a-z]|[A-Z])+!", withSyntaxKinds: [.Typeidentifier]).map { range
         in
         return StyleViolation(type: .ImplicitlyUnwrappedOptional,
                   location: Location(file: file, offset: range.location),
